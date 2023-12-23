@@ -1,13 +1,18 @@
 const Joi = require("joi");
 
-const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+const latinCyrillicPattern = /^(?! )[A-Za-z\u00C0-\u024F\u0400-\u04FF ]+(?! )$/;
+const phoneNumberPattern = /^\d{1,4}\s?\d{1,4}\s?\d{1,9}$/;
 
 const makeOrderSchema = Joi.object({
-  email: Joi.string()
+  fullName: Joi.string()
     .required()
-    .pattern(emailPattern)
+    .pattern(latinCyrillicPattern)
     .messages({ "string.pattern.base": "{#label} in not valid" }),
-  number: Joi.number().required(),
+  number: Joi.string()
+    .required()
+    .min(10)
+    .pattern(phoneNumberPattern)
+    .messages({ "string.pattern.base": "{#label} in not valid" }),
   description: Joi.string(),
 });
 

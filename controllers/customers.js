@@ -4,14 +4,14 @@ require("dotenv").config();
 const { HOST_EMAIL, OWNER_EMAIL } = process.env;
 
 const makeOrder = async (req, res) => {
-  const { email, number, description } = req.body;
+  const { fullName, number, description } = req.body;
 
   const emailOptions = {
     from: HOST_EMAIL,
     to: OWNER_EMAIL,
     subject: "Новая заявка",
     html: `<div>
-            <p>Почта: ${email}</p>
+            <p>Имя: ${fullName}</p>
             <p>Телефон: ${number}</p>
             <p>Описание: ${description || "Отсутствует"}</p>
           </div>`,
