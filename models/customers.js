@@ -7,13 +7,14 @@ const makeOrderSchema = Joi.object({
   fullName: Joi.string()
     .required()
     .pattern(latinCyrillicPattern)
+    .min(2)
     .messages({ "string.pattern.base": "{#label} in not valid" }),
   number: Joi.string()
     .required()
     .min(10)
     .pattern(phoneNumberPattern)
     .messages({ "string.pattern.base": "{#label} in not valid" }),
-  description: Joi.string(),
+  description: Joi.string().allow(""),
 });
 
 module.exports = {
